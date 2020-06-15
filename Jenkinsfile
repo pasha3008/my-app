@@ -1,32 +1,32 @@
 
 node {
    // This is to demo github action	
-   def sonarUrl = 'sonar.host.url=http://172.31.30.136:9000'
-   def mvn = tool (name: 'maven3', type: 'maven') + '/bin/mvn'
+   //def sonarUrl = 'sonar.host.url=http://172.31.30.136:9000'
+   def mvn = tool (name: 'maven', type: 'maven') + '/bin/mvn'
    stage('SCM Checkout'){
     // Clone repo
 	git branch: 'master', 
-	credentialsId: 'github', 
-	url: 'https://github.com/javahometech/myweb'
+	//credentialsId: 'github', 
+	url: 'https://github.com/pasha3008/my-app.git'
    
    }
    
-   stage('Sonar Publish'){
+  /* stage('Sonar Publish'){
 	   withCredentials([string(credentialsId: 'sonarqube', variable: 'sonarToken')]) {
         def sonarToken = "sonar.login=${sonarToken}"
         sh "${mvn} sonar:sonar -D${sonarUrl}  -D${sonarToken}"
 	 }
       
-   }
+   }*/
    
 	
    stage('Mvn Package'){
 	   // Build using maven
 	   
-	   sh "${mvn} clean package deploy"
+	   sh "${mvn} clean package"
    }
    
-   stage('deploy-dev'){
+  /* stage('deploy-dev'){
        def tomcatDevIp = '172.31.28.172'
 	   def tomcatHome = '/opt/tomcat8/'
 	   def webApps = tomcatHome+'webapps/'
@@ -47,6 +47,6 @@ node {
 Thanks,
 DevOps Team""", cc: '', from: '', replyTo: '', subject: "${env.JOB_NAME} Success", to: 'hari.kammana@gmail.com'
    
-   }
+   }*/
 }
 
